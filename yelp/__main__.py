@@ -1,6 +1,6 @@
 import requests
 
-url = "https://api.yelp.com/v3/events"
+url = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=New York City&limit=50"
 
 payload = {}
 headers = {
@@ -9,4 +9,4 @@ headers = {
 
 response = requests.request("GET", url, headers=headers, data = payload)
 
-print(response.text.encode('utf8'))
+
