@@ -1,4 +1,17 @@
 from pymongo import MongoClient
+import json
+import requests
+
+url = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=New York City&limit=50"
+
+payload = {}
+headers = {
+  'Authorization': 'Bearer EST24WiV5UEu-BGZFd7vKtHGcAUa7-rn4Pl0N_a9SVBqvOpYmlezH44rtYxtZQ7oDl6KtA2uNuBqlfha_WJKRsbwElJI_-iWZIXDo01KERC1rJ_nksJecLYch6TjXnYx'
+}
+
+response = requests.request("GET", url, headers=headers, data = payload)
+
+your_document = json.loads(response.text)
 
 # establing connection
 try:
@@ -14,19 +27,6 @@ col = db["Users"]
 
 print("Collection name:", col.name)
 
-document1 = {
-        "name":"John",
-        "age":24,
-        "location":"New York"
-        }
-#second document
-document2 = {
-        "name":"Sam",
-        "age":21,
-        "location":"Chicago"
-        }
+result = col.insert_one(your_document[0])
 
-col.insert_one(document1)
-col.insert_one(document2)
-
-print('hello')
+print(result.inserted_id)
