@@ -17,3 +17,15 @@ def get_api_call(url, payload):
 }
     response = requests.request("GET", url, headers=headers, data = payload)
     return response
+
+def get_collection(client, database_name, collection_name):
+	db = client.get_database()
+	assert db.name == database_name
+
+	try:
+		collection = db[collection_name]
+		print("The collection is found")
+	except:
+		print("Something is wrong")
+		
+	return collection
