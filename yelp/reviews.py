@@ -3,7 +3,7 @@ import json
 import requests
 
 
-url = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=Frankfurt&limit=50"
+url = "https://api.yelp.com/v3/businesses/AniwYrGjpmp_B51XO_kIVQ/reviews"
 
 payload = {}
 headers = {
@@ -24,6 +24,6 @@ except:
 db = client.get_database()
 assert db.name == 'TestDatabase'
 
-col = db["Businesses"]
-result = col.insert_many(your_document['businesses'])
+col = db["Reviews"]
+result = col.insert_many(your_document['reviews'])
 
