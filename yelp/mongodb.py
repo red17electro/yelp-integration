@@ -10,7 +10,9 @@ except:
 db = client.get_database()
 assert db.name == 'TestDatabase'
 
-collection = db.create_collection('TestCreatedNow')
+col = db.create_collection("Users")
+
+print("Collection name:", col.name)
 
 document1 = {
         "name":"John",
@@ -24,5 +26,5 @@ document2 = {
         "location":"Chicago"
         }
 
-collection.insert_one(document1)
-collection.insert_one(document2)
+col.insert_one(document1)
+col.insert_one(document2)
