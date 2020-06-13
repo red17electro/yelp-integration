@@ -27,6 +27,4 @@ col = db["Users"]
 
 print("Collection name:", col.name)
 
-result = col.insert_one(your_document[0])
-
-print(result.inserted_id)
+result = col.insert_one(your_document)
