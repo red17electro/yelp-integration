@@ -1,12 +1,9 @@
 from pymongo import MongoClient
 import pandas as pd
+from functions import db_connect
 
 # establing connection
-try:
-    client = MongoClient("mongodb+srv://admin:admin@cluster0-89mew.mongodb.net/TestDatabase?retryWrites=true&w=majority")
-    print("Connected successfully!!!")
-except:
-    print("Could not connect to MongoDB")
+client = db_connect()
 
 db = client.get_database()
 assert db.name == 'TestDatabase'
