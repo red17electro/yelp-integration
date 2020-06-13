@@ -27,4 +27,5 @@ col = db["Users"]
 
 print("Collection name:", col.name)
 
-client.close()
+result = col.insert_one(your_document)
+
