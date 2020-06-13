@@ -12,7 +12,7 @@ headers = {
 response = requests.request("GET", url, headers=headers, data = payload)
 
 your_document = json.loads(response.text)
-
+print(your_document)
 # establing connection
 try:
     client = MongoClient("mongodb+srv://admin:admin@cluster0-89mew.mongodb.net/TestDatabase?retryWrites=true&w=majority")
@@ -27,6 +27,4 @@ col = db["Users"]
 
 print("Collection name:", col.name)
 
-result = col.insert_one(your_document[0])
-
-print(result.inserted_id)
+client.close()
