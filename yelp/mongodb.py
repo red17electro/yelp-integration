@@ -1,29 +1,20 @@
-from pymongo import MongoClient
 import json
-import requests
+from functions import db_connect, get_api_call
 
-
-url = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=Frankfurt&limit=50"
+url = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=Manchester&limit=50"
 
 payload = {}
-headers = {
-  'Authorization': 'Bearer EST24WiV5UEu-BGZFd7vKtHGcAUa7-rn4Pl0N_a9SVBqvOpYmlezH44rtYxtZQ7oDl6KtA2uNuBqlfha_WJKRsbwElJI_-iWZIXDo01KERC1rJ_nksJecLYch6TjXnYx'
-}
 
-response = requests.request("GET", url, headers=headers, data = payload)
 
-your_document = json.loads(response.text)
-print(your_document)
-# establing connection
-try:
-    client = MongoClient("mongodb+srv://admin:admin@cluster0-89mew.mongodb.net/TestDatabase?retryWrites=true&w=majority")
-    print("Connected successfully!!!")
-except:
-    print("Could not connect to MongoDB")
+response = get_api_call(url, payload)
 
+businesses = json.loads(response.text)['businesses']
+
+client = db_connect()
 db = client.get_database()
-assert db.name == 'TestDatabase'
-
-col = db["Businesses"]
-result = col.insert_many(your_document['businesses'])
-
+collection = db["Businesses"]
+id_list = []
+for b in businesses:
+    b['_id'] = b.pop('id')
+    id_list.append(b.get('_id'))
+    collection.insert_one(b)
