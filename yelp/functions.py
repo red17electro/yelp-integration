@@ -29,3 +29,7 @@ def get_collection(client, database_name, collection_name):
 		print("Something is wrong")
 		
 	return collection
+	
+# interface for rating a review text
+def rate_review(text):
+	return True
