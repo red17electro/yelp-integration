@@ -29,7 +29,16 @@ def get_collection(client, database_name, collection_name):
 		print("Something is wrong")
 		
 	return collection
-	
+
+def insert_data(client, collection_name, json_data):
+    id_list = []
+    db = client.get_database()
+    collection = db[collection_name]
+    for j in json_data:
+        j['_id'] = j.pop('id')
+        id_list.append(j.get('_id'))
+        collection.insert_one(j)
+    return id_list
 # interface for rating a review text
 def rate_review(text):
 	return True
